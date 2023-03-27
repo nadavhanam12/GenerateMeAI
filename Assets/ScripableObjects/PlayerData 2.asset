@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d0c9c32044ca84eb0fb0e1239f99ac, type: 3}
+  m_Name: PlayerData 2
+  m_EditorClassIdentifier: 
+  Name: Player 2
+  Prompt: prompr player 2
+  GeneratedPicture: {fileID: 2800000, guid: 63e3e9f108c4b1f4badb7bdf9bdbb9c2, type: 3}
+  Score: 0
+  Color: {r: 0.95662296, g: 1, b: 0, a: 0}
