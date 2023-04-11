@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d0c9c32044ca84eb0fb0e1239f99ac, type: 3}
   m_Name: PlayerData 2
   m_EditorClassIdentifier: 
-  Name: Player 2
-  Prompt: prompr player 2
-  GeneratedPicture: {fileID: 2800000, guid: 63e3e9f108c4b1f4badb7bdf9bdbb9c2, type: 3}
-  Score: 0
-  Color: {r: 0.95662296, g: 1, b: 0, a: 0}
+  m_guessImageModel:
+    PromptText: 
+    Image: {fileID: 0}
+  m_points: 0
+  m_color: {r: 0, g: 0, b: 0, a: 0}

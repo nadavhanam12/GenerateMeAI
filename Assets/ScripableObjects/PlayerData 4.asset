@@ -15,5 +15,6 @@ MonoBehaviour:
   Name: Player 4
   Prompt: prompr player 4
   GeneratedPicture: {fileID: 2800000, guid: 8766642a410e579458c73228240ad2f1, type: 3}
-  Score: 0
+  Points: 1100
   Color: {r: 0, g: 0.11850643, b: 1, a: 0}
+  Index: 4
