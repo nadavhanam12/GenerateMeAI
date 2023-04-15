@@ -23,7 +23,6 @@ public class GuessImageController : MonoBehaviour
         m_playerName.text = m_playerDetails.PlayerName;
         m_playerIcon.texture = m_playerDetails.PlayerIcon;
         m_guessPromptController.Init(this);
-
     }
     internal int GetPlayerId()
     {
@@ -36,10 +35,6 @@ public class GuessImageController : MonoBehaviour
         m_guessPromptController.SetPrompt(guessImageModel.PromptText);
     }
 
-    internal void DisableInput()
-    {
-        m_guessPromptController.DisableInput();
-    }
     public void AddPoint()
     {
         m_manager.AddPoints();

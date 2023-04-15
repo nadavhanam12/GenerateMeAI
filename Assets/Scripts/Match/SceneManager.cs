@@ -5,19 +5,16 @@ using static StateController;
 
 public class SceneManager : AbstractStageChangeListener
 {
-    [SerializeField] private List<PlayerData> m_playerDataList;
+    private MatchConfiguration m_matchConfiguration;
     private int m_playerId;
     public override void Init(MatchConfiguration matchConfiguration)
     {
-        m_playerId = matchConfiguration.playerId;
-        int index = 0;
+        m_matchConfiguration = matchConfiguration;
+        m_playerId = m_matchConfiguration.playerId;
         for (int i = 0; i < 4; i++)
         {
-            m_playerDataList[i].InitScore();
-            m_playerDataList[i].SetPlayerDetails(matchConfiguration.playersDetails[i]);
-            index++;
+            m_matchConfiguration.PlayersData[i].InitScore();
         }
-
 
     }
     protected override void OnEnable()
@@ -42,7 +39,7 @@ public class SceneManager : AbstractStageChangeListener
 
     private void PlayerSubmitImage(int playerId, GuessImageModel guessImageModel)
     {
-        foreach (PlayerData data in m_playerDataList)
+        foreach (PlayerData data in m_matchConfiguration.PlayersData)
             if (data.GetId() == playerId)
                 data.SetGuessImageModel(guessImageModel);
     }
@@ -50,7 +47,7 @@ public class SceneManager : AbstractStageChangeListener
 
     private void UpdateScore(int playerId, int points)
     {
-        foreach (PlayerData data in m_playerDataList)
+        foreach (PlayerData data in m_matchConfiguration.PlayersData)
             if (data.GetId() == playerId)
                 data.AddPoints(points);
     }

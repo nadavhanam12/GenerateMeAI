@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
+using UnityEngine.UI;
 
 public static class LeanTweenExt
 {
@@ -157,13 +159,16 @@ public static class LeanTweenExt
     public static LTDescr LeanValue(this GameObject gameObject, Action<Vector2> callOnUpdate, Vector2 from, Vector2 to, float time) { return LeanTween.value(gameObject, callOnUpdate, from, to, time); }
     public static LTDescr LeanValue(this GameObject gameObject, Action<Vector3> callOnUpdate, Vector3 from, Vector3 to, float time) { return LeanTween.value(gameObject, callOnUpdate, from, to, time); }
 
-    public static void LeanSetPosX(this Transform transform, float val){
+    public static void LeanSetPosX(this Transform transform, float val)
+    {
         transform.position = new Vector3(val, transform.position.y, transform.position.z);
     }
-    public static void LeanSetPosY(this Transform transform, float val) {
+    public static void LeanSetPosY(this Transform transform, float val)
+    {
         transform.position = new Vector3(transform.position.x, val, transform.position.z);
     }
-    public static void LeanSetPosZ(this Transform transform, float val) {
+    public static void LeanSetPosZ(this Transform transform, float val)
+    {
         transform.position = new Vector3(transform.position.x, transform.position.y, val);
     }
 
@@ -184,4 +189,28 @@ public static class LeanTweenExt
     {
         return transform.GetComponent<Renderer>().material.color;
     }
+    public static LTDescr FadeText(TMP_Text text, float to, float time)
+    {
+        var _color = text.color;
+        var _tween = LeanTween
+            .value(text.gameObject, _color.a, to, time)
+            .setOnUpdate((float _value) =>
+            {
+                _color.a = _value;
+                text.color = _color;
+            });
+        return _tween;
+    }
+    // public static LTDescr ChangeColor(Image image, Color to, float time)
+    // {
+    //     var _color = image.color;
+    //     var _tween = LeanTween
+    //         .value(image.gameObject, _color.a, to, time)
+    //         .setOnUpdate((float _value) =>
+    //         {
+    //             _color.a = _value;
+    //             text.color = _color;
+    //         });
+    //     return _tween;
+    // }
 }

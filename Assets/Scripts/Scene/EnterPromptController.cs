@@ -24,7 +24,7 @@ public class EnterPromptController : AbstractStageChangeListener
         ToggleWaitText(false);
         m_canvas.enabled = false;
         gameObject.SetActive(true);
-        Invoke("Submit", 2f);
+        Invoke("Submit", 0.1f);
     }
 
     void Show()

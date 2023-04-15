@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15afcfbf5b93a0e4f8a0be1cc64d7c21, type: 3}
+  m_Name: MatchConfiguration
+  m_EditorClassIdentifier: 
+  playerId: 1
+  PlayersData:
+  - m_playerDetails:
+      PlayerId: 1
+      PlayerName: Nadav
+      PlayerIcon: {fileID: 2800000, guid: c75243f77c55bc44386054b2d0ae3c33, type: 3}
+    m_guessImageModel:
+      PromptText: 
+      Image: {fileID: 0}
+    m_points: 0
+  - m_playerDetails:
+      PlayerId: 2
+      PlayerName: Maria
+      PlayerIcon: {fileID: 2800000, guid: 57b526fc4e65c484ab4888ec54817f62, type: 3}
+    m_guessImageModel:
+      PromptText: 
+      Image: {fileID: 0}
+    m_points: 0
+  - m_playerDetails:
+      PlayerId: 3
+      PlayerName: Omer
+      PlayerIcon: {fileID: 2800000, guid: 75b82b63ba37d9f47960f4384fad27d7, type: 3}
+    m_guessImageModel:
+      PromptText: 
+      Image: {fileID: 0}
+    m_points: 0
+  - m_playerDetails:
+      PlayerId: 4
+      PlayerName: Rotem
+      PlayerIcon: {fileID: 2800000, guid: 25d56614dd3f16c4b8bccfbaf5abf30a, type: 3}
+    m_guessImageModel:
+      PromptText: 
+      Image: {fileID: 0}
+    m_points: 0
+  WaitingForPlayersDuration: 0.5
+  ChoosingPromptDuration: 0.5
+  MatchStartingDuration: 1
+  MatchDuration: 100

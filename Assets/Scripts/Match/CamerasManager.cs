@@ -9,6 +9,7 @@ public class CamerasManager : AbstractStageChangeListener
     [SerializeField] Camera m_gameCamera;
     [SerializeField] Camera m_guessCamera;
     [Range(0, 1)][SerializeField] float m_mainCameraSize = 0.5f;
+    [SerializeField] bool m_sceneUp = true;
     public override void Init(MatchConfiguration matchConfiguration)
     {
         m_gameCamera.rect = new Rect(0, 0, 1, 1);
@@ -34,9 +35,12 @@ public class CamerasManager : AbstractStageChangeListener
                     (float val) =>
                     {
                         gameRect.height = val;
-                        gameRect.y = 1 - val;
+                        if (m_sceneUp)
+                            gameRect.y = 1 - val;
                         m_gameCamera.rect = gameRect;
 
+                        if (!m_sceneUp)
+                            guessRect.y = val;
                         guessRect.height = 1 - val;
                         m_guessCamera.rect = guessRect;
                     }
@@ -52,9 +56,12 @@ public class CamerasManager : AbstractStageChangeListener
                     (float val) =>
                     {
                         gameRect.height = val;
-                        gameRect.y = 1 - val;
+                        if (m_sceneUp)
+                            gameRect.y = 1 - val;
                         m_gameCamera.rect = gameRect;
 
+                        if (!m_sceneUp)
+                            guessRect.y = val;
                         guessRect.height = 1 - val + 0.01f;
                         m_guessCamera.rect = guessRect;
                     }

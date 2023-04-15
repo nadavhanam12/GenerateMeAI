@@ -14,11 +14,11 @@ public class GuessManager : AbstractStageChangeListener
     {
         m_playerId = matchConfiguration.playerId;
         int index = 0;
-        foreach (PlayerDetails playerDetails in matchConfiguration.playersDetails)
+        foreach (PlayerData playerData in matchConfiguration.PlayersData)
         {
-            if (playerDetails.PlayerId != m_playerId)
+            if (playerData.GetId() != m_playerId)
             {
-                m_controllersList[index]?.Init(this, playerDetails);
+                m_controllersList[index]?.Init(this, playerData.GetPlayerDetails());
                 index++;
             }
         }
@@ -49,8 +49,8 @@ public class GuessManager : AbstractStageChangeListener
 
     private void DisableInput()
     {
-        foreach (GuessImageController imageController in m_controllersList)
-            imageController.DisableInput();
+        // foreach (GuessImageController imageController in m_controllersList)
+        //     imageController.DisableInput();
     }
 
     private void PlayerSubmitImage(int playerId, GuessImageModel guessImageModel)
@@ -68,15 +68,19 @@ public class GuessManager : AbstractStageChangeListener
     //simulates adding 100 points to different player every 0.X seconds
     IEnumerator SimulateScores()
     {
-        int playerId = 0;
         WaitForSeconds waitForSeconds = new WaitForSeconds(0.5f);
-        for (int i = 0; i < 20; i++)
+        yield return waitForSeconds;
+        int playerId = 1;
+        int pointsToAdd;
+        for (int i = 0; i < 100; i++)
         {
-            OnPlayerEarnedPoints(playerId, 100);
+            pointsToAdd = UnityEngine.Random.Range(1, 6);
+            OnPlayerEarnedPoints(playerId, 100 * pointsToAdd);
             yield return waitForSeconds;
-            playerId++;
             playerId = playerId % 4;
+            playerId++;
         }
 
     }
+
 }

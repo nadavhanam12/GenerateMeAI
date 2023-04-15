@@ -14,26 +14,28 @@ public class StateController : MonoBehaviour
         Match,
         MatchFinish,
     }
-    [SerializeField] private int m_choosingPromptDuration = 4;
-    [SerializeField] private int m_MatchDuration = 40;
-
     public static event Action<MatchState> OnStateChange;
 
     private MatchState m_curState;
+    protected virtual void OnEnable()
+    {
+        TimeController.OnStageTimeIsOver += StageTimeOver;
+    }
+    protected virtual void OnDisable()
+    {
+        TimeController.OnStageTimeIsOver -= StageTimeOver;
+    }
 
     public async void StartMatch()
     {
+        await Task.Delay(1000);
         SetState(MatchState.WaitingForOtherPlayers);
-        await Task.Delay(1000);
-        SetState(MatchState.ChoosingPrompt);
-        await Task.Delay(1000 * m_choosingPromptDuration);
-        SetState(MatchState.MatchStarting);
-        await Task.Delay(1000 * m_MatchDuration);
-        SetState(MatchState.Match);
-        await Task.Delay(1000);
-        SetState(MatchState.MatchFinish);
     }
+    private void StageTimeOver(MatchState finishedState)
+    {
+        SetState((MatchState)((int)m_curState + 1));
 
+    }
     private void SetState(MatchState newState)
     {
         Debug.Log("OnStateChange: " + newState.ToString());

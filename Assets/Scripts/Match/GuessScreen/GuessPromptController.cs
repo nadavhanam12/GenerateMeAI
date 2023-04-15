@@ -8,6 +8,8 @@ public class GuessPromptController : MonoBehaviour
     GuessImageController m_guessImageController;
     [SerializeField] GuessLettersFactory m_guessLettersFactory;
     [SerializeField] int m_hiddenIndexesCount = 5;
+    [SerializeField] float m_releaseRnage = 10f;
+    List<MissingLetter> m_missingLetters;
     string m_prompt;
     public void Init(GuessImageController guessImageController)
     {
@@ -18,17 +20,52 @@ public class GuessPromptController : MonoBehaviour
     {
         m_prompt = prompt;
         List<int> hiddenIndexes = GenerateHiddenIndexes(m_prompt);
-        m_guessLettersFactory.GenerateLetters(this, m_prompt, hiddenIndexes);
-    }
-
-    internal void DisableInput()
-    {
-        //throw new NotImplementedException();
+        m_missingLetters = m_guessLettersFactory.GenerateLetters(this, m_prompt, hiddenIndexes);
     }
 
     public void AddPoints()
     {
         m_guessImageController.AddPoint();
+    }
+
+    internal void OnLetterRelease(DragableLetter dragableLetter)
+    {
+        bool isReleaseOnLetter = false;
+        //print(releasePos);
+        foreach (MissingLetter missingLetter in m_missingLetters)
+        {
+            if (IsInRange(missingLetter, dragableLetter))
+            {
+                isReleaseOnLetter = true;
+                if (missingLetter.GetLetter() == dragableLetter.GetLetter())
+                {
+                    //letters match
+                    missingLetter.Reveal();
+                    dragableLetter.Destroy();
+                    AddPoints();
+                }
+                else
+                {
+                    //letters dont match
+                    missingLetter.FailTry();
+                    dragableLetter.InitPosition();
+                }
+                break;
+            }
+        }
+
+        if (!isReleaseOnLetter)
+            dragableLetter.InitPosition();
+    }
+
+    private bool IsInRange(MissingLetter missingLetter, DragableLetter dragableLetter)
+    {
+        Vector2 missingLetterPos = missingLetter.transform.position;
+        Vector2 dragableLetterPos = dragableLetter.transform.position;
+        float distance = Vector2.Distance(missingLetterPos, dragableLetterPos);
+        if (distance < m_releaseRnage)
+            return true;
+        return false;
     }
 
     private List<int> GenerateHiddenIndexes(string prompt)
@@ -46,5 +83,6 @@ public class GuessPromptController : MonoBehaviour
         }
         return hiddenIndexes;
     }
+
 
 }
