@@ -18,6 +18,7 @@ public class TimeController : AbstractStageChangeListener
 
     public override void Init(MatchConfiguration matchConfiguration)
     {
+        m_timerText.gameObject.SetActive(false);
         m_stagesDurations = matchConfiguration.StagesDurations;
     }
 
@@ -48,6 +49,8 @@ public class TimeController : AbstractStageChangeListener
     {
         StopAllCoroutines();
         m_curTime = duration;
+        m_timerText.gameObject.SetActive(true);
+
         StartCoroutine(TimerCoroutine());
     }
 

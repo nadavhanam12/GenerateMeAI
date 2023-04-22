@@ -15,7 +15,7 @@ public class GuessLettersFactory : MonoBehaviour
     [SerializeField] Letter m_spaceLetterPrefab;
     [SerializeField] MissingLetter m_missingLetterPrefab;
     [SerializeField] DragableLetter m_dragableLetterPrefab;
-
+    [SerializeField] Vector2 m_cellSize;
     private List<MissingLetter> m_missingLetterList;
     private List<char> m_dragableChars;
 
@@ -52,7 +52,7 @@ public class GuessLettersFactory : MonoBehaviour
         //update prompt cell size
         float width = m_promptTransform.rect.width - gridLayoutGroup.padding.left - gridLayoutGroup.padding.right;
         float cellWidth = width / (promptLength + 2) * 2;
-        Vector2 newSize = new Vector2(cellWidth, 150);
+        Vector2 newSize = m_cellSize;
         m_promptTransform.GetComponent<GridLayoutGroup>().cellSize = newSize;
 
         //update dragable letters cell size

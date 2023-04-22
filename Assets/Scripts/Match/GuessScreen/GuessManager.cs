@@ -68,14 +68,15 @@ public class GuessManager : AbstractStageChangeListener
     //simulates adding 100 points to different player every 0.X seconds
     IEnumerator SimulateScores()
     {
-        WaitForSeconds waitForSeconds = new WaitForSeconds(0.5f);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(2f);
         yield return waitForSeconds;
         int playerId = 1;
         int pointsToAdd;
         for (int i = 0; i < 100; i++)
         {
-            pointsToAdd = UnityEngine.Random.Range(1, 6);
-            OnPlayerEarnedPoints(playerId, 100 * pointsToAdd);
+            pointsToAdd = UnityEngine.Random.Range(1, 2);
+            if (playerId != 1)
+                OnPlayerEarnedPoints(playerId, 100 * pointsToAdd);
             yield return waitForSeconds;
             playerId = playerId % 4;
             playerId++;

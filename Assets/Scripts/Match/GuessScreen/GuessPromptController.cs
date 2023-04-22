@@ -7,8 +7,10 @@ public class GuessPromptController : MonoBehaviour
 {
     GuessImageController m_guessImageController;
     [SerializeField] GuessLettersFactory m_guessLettersFactory;
-    [SerializeField] int m_hiddenIndexesCount = 5;
-    [SerializeField] float m_releaseRnage = 10f;
+    [SerializeField][Range(0, 1)] float m_hiddenIndexesPrecentage = 0.5f;
+    [SerializeField][Range(0, 1)] int m_hiddenIndexesMinimum = 5;
+
+    [SerializeField] float m_releaseRange = 10f;
     List<MissingLetter> m_missingLetters;
     string m_prompt;
     public void Init(GuessImageController guessImageController)
@@ -19,7 +21,7 @@ public class GuessPromptController : MonoBehaviour
     public void SetPrompt(string prompt)
     {
         m_prompt = prompt;
-        List<int> hiddenIndexes = GenerateHiddenIndexes(m_prompt);
+        List<int> hiddenIndexes = GetRandomNonSpaceIndexes(m_prompt);
         m_missingLetters = m_guessLettersFactory.GenerateLetters(this, m_prompt, hiddenIndexes);
     }
 
@@ -63,25 +65,37 @@ public class GuessPromptController : MonoBehaviour
         Vector2 missingLetterPos = missingLetter.transform.position;
         Vector2 dragableLetterPos = dragableLetter.transform.position;
         float distance = Vector2.Distance(missingLetterPos, dragableLetterPos);
-        if (distance < m_releaseRnage)
+        if (distance < m_releaseRange)
             return true;
         return false;
     }
 
-    private List<int> GenerateHiddenIndexes(string prompt)
+    List<int> GetRandomNonSpaceIndexes(string prompt)
     {
-        List<int> hiddenIndexes = new List<int>();
-        int curIndex;
-        while (hiddenIndexes.Count != m_hiddenIndexesCount)
+        List<int> nonSpaceIndexes = new List<int>();
+        for (int i = 0; i < prompt.Length; i++)
         {
-            curIndex = UnityEngine.Random.Range(0, prompt.Length);
-            if (prompt[curIndex] == ' ')
-                continue;
-            if (hiddenIndexes.Contains(curIndex))
-                continue;
-            hiddenIndexes.Add(curIndex);
+            if (prompt[i] != ' ')
+            {
+                nonSpaceIndexes.Add(i);
+            }
         }
-        return hiddenIndexes;
+
+        List<int> randomIndexes = new List<int>();
+        System.Random rand = new System.Random();
+
+        int count = (int)(nonSpaceIndexes.Count * m_hiddenIndexesPrecentage);
+        if (count < m_hiddenIndexesMinimum)
+            count = m_hiddenIndexesMinimum;
+
+        for (int i = 0; i < count; i++)
+        {
+            int randomIndex = nonSpaceIndexes[rand.Next(nonSpaceIndexes.Count)];
+            nonSpaceIndexes.Remove(randomIndex);
+            randomIndexes.Add(randomIndex);
+        }
+
+        return randomIndexes;
     }
 
 
