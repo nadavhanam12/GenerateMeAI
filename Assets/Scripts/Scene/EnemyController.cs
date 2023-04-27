@@ -19,11 +19,11 @@ public class EnemyController : AbstractStageChangeListener
     {
         if (state == MatchState.Match)
         {
-            foreach (GameObject enemy in m_enemys)
-            {
-                enemy.SetActive(true);
-            }
-            m_anim.enabled = true;
+            // foreach (GameObject enemy in m_enemys)
+            // {
+            //     enemy.SetActive(true);
+            // }
+            // m_anim.enabled = true;
 
         }
         else if (state == MatchState.MatchFinish)

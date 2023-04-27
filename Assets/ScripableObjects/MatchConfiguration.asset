@@ -27,27 +27,27 @@ MonoBehaviour:
       PlayerName: Maria
       PlayerIcon: {fileID: 2800000, guid: 57b526fc4e65c484ab4888ec54817f62, type: 3}
     m_guessImageModel:
-      PromptText: pirate ship in the middle of a storm
-      Image: {fileID: 2800000, guid: 25415b7e02378ef4fa86f89d6c5908ef, type: 3}
-    m_points: 100
+      PromptText: team of cats journeys to a remote destiny
+      Image: {fileID: 2800000, guid: eba419fa7fe2b704089815e7e5991359, type: 3}
+    m_points: 300
   - m_playerDetails:
       PlayerId: 3
       PlayerName: Omer
       PlayerIcon: {fileID: 2800000, guid: 75b82b63ba37d9f47960f4384fad27d7, type: 3}
     m_guessImageModel:
-      PromptText: scary clown with a red balloon in his hand
-      Image: {fileID: 2800000, guid: bcb82fe36b1c1f94a8ddaaa9a97554a0, type: 3}
-    m_points: 0
+      PromptText: pirate ship in the middle of a storm
+      Image: {fileID: 2800000, guid: 25415b7e02378ef4fa86f89d6c5908ef, type: 3}
+    m_points: 300
   - m_playerDetails:
       PlayerId: 4
       PlayerName: Rotem
       PlayerIcon: {fileID: 2800000, guid: 25d56614dd3f16c4b8bccfbaf5abf30a, type: 3}
     m_guessImageModel:
-      PromptText: two man in suits holding guns
-      Image: {fileID: 2800000, guid: 401a2006ed6d3a645aea0f30c6e578ff, type: 3}
-    m_points: 0
+      PromptText: scary clown with a red balloon in his hand
+      Image: {fileID: 2800000, guid: bcb82fe36b1c1f94a8ddaaa9a97554a0, type: 3}
+    m_points: 200
   StagesDurations:
-    WaitingForPlayersDuration: 2
-    ChoosingPromptDuration: 2
-    MatchStartingDuration: 2
+    WaitingForPlayersDuration: 0
+    ChoosingPromptDuration: 0
+    MatchStartingDuration: 0
     MatchDuration: 100

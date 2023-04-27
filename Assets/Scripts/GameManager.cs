@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MatchConfiguration m_matchConfiguration;
     void Start()
     {
+        Application.targetFrameRate = 60;
         Init();
         StartMatch();
     }

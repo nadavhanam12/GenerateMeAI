@@ -9,6 +9,7 @@ public class GuessManager : AbstractStageChangeListener
     public static event Action<int, int> OnPlayerEarnedPoints;
     [SerializeField] private Canvas m_canvas;
     [SerializeField] List<GuessImageController> m_controllersList;
+    [SerializeField] private GameObject m_questionMark;
     int m_playerId;
     public override void Init(MatchConfiguration matchConfiguration)
     {
@@ -40,8 +41,14 @@ public class GuessManager : AbstractStageChangeListener
 
     public override void StateChange(StateController.MatchState state)
     {
-        if (state == MatchState.Match)
+        if (state == MatchState.WaitingForOtherPlayers)
+            ToggleGuessControllers(false);
+        else if (state == MatchState.Match)
+        {
+            ToggleGuessControllers(true);
             StartCoroutine("SimulateScores");
+
+        }
         else if (state == MatchState.MatchFinish)
             DisableInput();
 
@@ -52,7 +59,12 @@ public class GuessManager : AbstractStageChangeListener
         // foreach (GuessImageController imageController in m_controllersList)
         //     imageController.DisableInput();
     }
-
+    private void ToggleGuessControllers(bool toShow)
+    {
+        foreach (GuessImageController imageController in m_controllersList)
+            imageController.gameObject.SetActive(toShow);
+        m_questionMark.SetActive(!toShow);
+    }
     private void PlayerSubmitImage(int playerId, GuessImageModel guessImageModel)
     {
         foreach (GuessImageController imageController in m_controllersList)

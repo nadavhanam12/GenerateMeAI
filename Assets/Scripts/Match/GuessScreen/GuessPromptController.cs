@@ -38,21 +38,21 @@ public class GuessPromptController : MonoBehaviour
         {
             if (IsInRange(missingLetter, dragableLetter))
             {
-                isReleaseOnLetter = true;
                 if (missingLetter.GetLetter() == dragableLetter.GetLetter())
                 {
                     //letters match
                     missingLetter.Reveal();
                     dragableLetter.Destroy();
                     AddPoints();
+                    isReleaseOnLetter = true;
+                    break;
                 }
                 else
                 {
                     //letters dont match
                     missingLetter.FailTry();
-                    dragableLetter.InitPosition();
                 }
-                break;
+
             }
         }
 

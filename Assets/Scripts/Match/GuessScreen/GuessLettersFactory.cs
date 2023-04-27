@@ -8,37 +8,35 @@ public class GuessLettersFactory : MonoBehaviour
 {
     [SerializeField] Canvas m_canvas;
     [SerializeField] GuessPromptController m_controller;
-
+    [SerializeField] GuessLettersPool m_pool;
     [SerializeField] RectTransform m_promptTransform;
     [SerializeField] RectTransform m_dragableLettersTransform;
-    [SerializeField] Letter m_letterPrefab;
-    [SerializeField] Letter m_spaceLetterPrefab;
-    [SerializeField] MissingLetter m_missingLetterPrefab;
-    [SerializeField] DragableLetter m_dragableLetterPrefab;
     [SerializeField] Vector2 m_cellSize;
     private List<MissingLetter> m_missingLetterList;
     private List<char> m_dragableChars;
 
     public List<MissingLetter> GenerateLetters(
         GuessPromptController Controller,
-        string promp,
+        string prompt,
         List<int> hiddenLetters)
     {
         m_missingLetterList = new List<MissingLetter>();
         m_dragableChars = new List<char>();
 
-        UpdateCellSize(promp.Length);
+        UpdateCellSize(prompt.Length);
+        Letter newLetter;
         //iterate every letter in prompt
-        for (int i = 0; i < promp.Length; i++)
+        for (int i = 0; i < prompt.Length; i++)
         {
             //if letter should be hidden
             if (hiddenLetters.Contains(i))
-                GenerateMissingLetter(promp[i]);
-            else if (promp[i] == ' ')
-                GenerateSpaceLetter(promp[i]);
+                newLetter = GenerateMissingLetter(prompt[i]);
+            else if (prompt[i] == ' ')
+                newLetter = GenerateSpaceLetter(prompt[i]);
             else
-                GenerateLetter(promp[i]);
+                newLetter = GenerateLetter(prompt[i]);
 
+            newLetter.transform.SetSiblingIndex(i);
         }
 
         GenearetDragablesChars();
@@ -61,43 +59,52 @@ public class GuessLettersFactory : MonoBehaviour
     }
 
 
-    private void GenerateLetter(char c)
+    private Letter GenerateLetter(char c)
     {
-        Letter letter = Instantiate(m_letterPrefab, m_promptTransform, false);
-        letter.transform.localScale = Vector3.one;
+        Letter letter = m_pool.GetLetter();
+        // letter.transform.SetParent(m_promptTransform);
+        // letter.transform.localScale = Vector3.one;
         letter.Init(c);
+        return letter;
+
     }
 
-    private void GenerateSpaceLetter(char c)
+    private Letter GenerateSpaceLetter(char c)
     {
-        Letter letter = Instantiate(m_spaceLetterPrefab, m_promptTransform, false);
-        letter.transform.localScale = Vector3.one;
-        //letter.Init(c);
+        Letter letter = m_pool.GetSpaceLetter();
+        // letter.transform.SetParent(m_promptTransform);
+        // letter.transform.localScale = Vector3.one;
+        letter.Init(c);
+        return letter;
     }
-    private void GenerateMissingLetter(char c)
+    private Letter GenerateMissingLetter(char c)
     {
-        MissingLetter missingLetter = Instantiate(m_missingLetterPrefab, m_promptTransform, false);
-        missingLetter.transform.localScale = Vector3.one;
+        MissingLetter missingLetter = m_pool.GetMissingLetter();
+        // missingLetter.transform.SetParent(m_promptTransform);
+        // missingLetter.transform.localScale = Vector3.one;
         missingLetter.Init(c);
+
         m_missingLetterList.Add(missingLetter);
         m_dragableChars.Add(c);
+        return missingLetter;
     }
     private void GenearetDragablesChars()
     {
+        if (m_dragableChars == null) return;
         Shuffle(m_dragableChars);
         foreach (char c in m_dragableChars)
             GenerateDragableLetter(c);
     }
     private void GenerateDragableLetter(char c)
     {
-        DragableLetter dragableLetter = Instantiate(m_dragableLetterPrefab, m_dragableLettersTransform, false);
-        dragableLetter.transform.localScale = Vector3.one;
+        DragableLetter dragableLetter = m_pool.GetDragableLetter();
+        // dragableLetter.transform.SetParent(m_dragableLettersTransform);
+        // dragableLetter.transform.localScale = Vector3.one;
         dragableLetter.Init(m_controller, m_canvas, c);
     }
     public void Shuffle(List<char> list)
     {
         System.Random random = new System.Random();
-
         // Loop through the list and swap each item with a random item
         for (int i = 0; i < list.Count; i++)
         {

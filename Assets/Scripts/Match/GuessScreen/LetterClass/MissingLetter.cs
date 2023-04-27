@@ -23,6 +23,7 @@ public class MissingLetter : Letter
     }
     internal void FailTry()
     {
+        if (IsRevealed) return;
         //print("Fail Try");
         LeanTween.color(m_backgroundImage.rectTransform, m_failColor, m_failTweenDuration)
         .setLoopPingPong(m_tweenRepeat);
@@ -30,6 +31,7 @@ public class MissingLetter : Letter
     }
     internal void Reveal()
     {
+        if (IsRevealed) return;
         IsRevealed = true;
         //disapear
         Color initColor;
@@ -45,5 +47,11 @@ public class MissingLetter : Letter
         .setEaseOutQuad();
         LeanTween.color(m_backgroundImage.rectTransform, m_successColor, m_failTweenDuration)
        .setLoopPingPong(m_tweenRepeat);
+    }
+
+    public override char GetLetter()
+    {
+        if (IsRevealed) return '=';
+        return base.GetLetter();
     }
 }

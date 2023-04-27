@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4753329951534503161
 RectTransform:
   m_ObjectHideFlags: 0
@@ -57,9 +57,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4753329951534503161}
     m_Modifications:
+    - target: {fileID: 2181551911681062356, guid: 95a921545097d9841b7bb2ee3b4c8c35, type: 3}
+      propertyPath: m_Maskable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181551911681062356, guid: 95a921545097d9841b7bb2ee3b4c8c35, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2181551911681062358, guid: 95a921545097d9841b7bb2ee3b4c8c35, type: 3}
       propertyPath: m_Name
       value: Letter
+      objectReference: {fileID: 0}
+    - target: {fileID: 2181551911681062358, guid: 95a921545097d9841b7bb2ee3b4c8c35, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2181551911681062359, guid: 95a921545097d9841b7bb2ee3b4c8c35, type: 3}
       propertyPath: m_Pivot.x

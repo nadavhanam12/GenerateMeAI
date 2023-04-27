@@ -15,10 +15,10 @@ public class RunningPlane : AbstractStageChangeListener
 
     public override void StateChange(MatchState state)
     {
-        if (state == MatchState.Match)
-            m_animator.SetBool("shouldLoop", true);
-        else if (state == MatchState.MatchFinish)
-            m_animator.SetBool("shouldLoop", false);
+        // if (state == MatchState.Match)
+        //     m_animator.SetBool("shouldLoop", true);
+        // else if (state == MatchState.MatchFinish)
+        //     m_animator.SetBool("shouldLoop", false);
     }
 
 

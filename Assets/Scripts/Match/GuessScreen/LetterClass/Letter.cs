@@ -11,11 +11,14 @@ public class Letter : MonoBehaviour
 
     public virtual void Init(char c)
     {
+        gameObject.SetActive(true);
+
+        if (c == ' ') return;
         m_letter = c;
         m_letterText.text = m_letter.ToString();
     }
 
-    public char GetLetter()
+    public virtual char GetLetter()
     {
         return m_letter;
     }

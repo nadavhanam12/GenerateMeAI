@@ -19,7 +19,7 @@ public class CamerasManager : AbstractStageChangeListener
     public override void StateChange(MatchState state)
     {
         //Debug.Log("State changed " + state.ToString());
-        if (state == MatchState.Match)
+        if (state == MatchState.MatchStarting)
             SplitScreen();
         else if (state == MatchState.MatchFinish)
             UnifyScreen();
@@ -44,7 +44,7 @@ public class CamerasManager : AbstractStageChangeListener
                         guessRect.height = 1 - val;
                         m_guessCamera.rect = guessRect;
                     }
-                ).setEase(LeanTweenType.easeOutQuad);
+                ).setEase(LeanTweenType.easeOutExpo);
     }
     public void UnifyScreen()
     {
