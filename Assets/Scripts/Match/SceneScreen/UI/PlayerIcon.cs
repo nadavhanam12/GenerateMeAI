@@ -27,10 +27,6 @@ public class PlayerIcon : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    internal int GetPlayerId()
-    {
-        return m_playerDetails.PlayerId;
-    }
 
     internal void SetPos(int posIndex)
     {

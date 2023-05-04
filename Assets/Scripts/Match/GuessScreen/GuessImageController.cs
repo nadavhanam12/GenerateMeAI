@@ -40,5 +40,8 @@ public class GuessImageController : MonoBehaviour
         m_manager.AddPoints();
     }
 
-
+    internal void ToggleInput(bool isOn)
+    {
+        m_guessPromptController.ToggleInput(isOn);
+    }
 }

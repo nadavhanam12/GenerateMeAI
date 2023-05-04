@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12ce90c65eba35243a7dd7fa0a5f44f3, type: 3}
   m_Name: ChristmasThemeImages
   m_EditorClassIdentifier: 
+  ThemePromp: Christmas theme
   Images:
   - PromptText: big black and white cat with a red stripes hat
     Image: {fileID: 2800000, guid: 5efd7ee0fc2b79f44bd8b99644be5560, type: 3}

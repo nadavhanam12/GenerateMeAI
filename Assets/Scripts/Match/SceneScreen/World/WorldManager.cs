@@ -6,6 +6,7 @@ using static StateController;
 public class WorldManager : AbstractStageChangeListener
 {
     private MatchConfiguration m_matchConfiguration;
+    [SerializeField] CharactersController m_charactersController;
     private int m_playerId;
     public override void Init(MatchConfiguration matchConfiguration)
     {
@@ -15,6 +16,7 @@ public class WorldManager : AbstractStageChangeListener
         {
             m_matchConfiguration.PlayersData[i].InitScore();
         }
+        m_charactersController.Init(matchConfiguration);
 
     }
     protected override void OnEnable()
@@ -50,6 +52,8 @@ public class WorldManager : AbstractStageChangeListener
         foreach (PlayerData data in m_matchConfiguration.PlayersData)
             if (data.GetId() == playerId)
                 data.AddPoints(points);
+
+        m_charactersController.AddPoints(playerId, points);
     }
 
 

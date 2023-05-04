@@ -38,7 +38,7 @@ public class StateController : MonoBehaviour
     }
     private void SetState(MatchState newState)
     {
-        Debug.Log("OnStateChange: " + newState.ToString());
+        //Debug.Log("OnStateChange: " + newState.ToString());
         m_curState = newState;
         OnStateChange?.Invoke(m_curState);
     }

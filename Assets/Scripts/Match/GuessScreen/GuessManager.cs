@@ -29,6 +29,7 @@ public class GuessManager : AbstractStageChangeListener
     {
         base.OnEnable();
         EnterPromptController.OnPlayerSubmitImage += PlayerSubmitImage;
+        TurnController.OnPlayerNewTurn += PlayerNewTurn;
     }
 
 
@@ -36,8 +37,8 @@ public class GuessManager : AbstractStageChangeListener
     {
         base.OnDisable();
         EnterPromptController.OnPlayerSubmitImage -= PlayerSubmitImage;
+        TurnController.OnPlayerNewTurn -= PlayerNewTurn;
     }
-
 
     public override void StateChange(StateController.MatchState state)
     {
@@ -47,17 +48,23 @@ public class GuessManager : AbstractStageChangeListener
         {
             ToggleGuessControllers(true);
             StartCoroutine("SimulateScores");
-
         }
         else if (state == MatchState.MatchFinish)
-            DisableInput();
+            ToggleInput(false);
 
     }
-
-    private void DisableInput()
+    private void PlayerNewTurn(int playerId)
     {
-        // foreach (GuessImageController imageController in m_controllersList)
-        //     imageController.DisableInput();
+        if (m_playerId == playerId)
+            ToggleInput(true);
+        else
+            ToggleInput(false);
+    }
+
+    private void ToggleInput(bool isOn)
+    {
+        foreach (GuessImageController imageController in m_controllersList)
+            imageController.ToggleInput(isOn);
     }
     private void ToggleGuessControllers(bool toShow)
     {
@@ -80,15 +87,15 @@ public class GuessManager : AbstractStageChangeListener
     //simulates adding 100 points to different player every 0.X seconds
     IEnumerator SimulateScores()
     {
-        WaitForSeconds waitForSeconds = new WaitForSeconds(2f);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(0.6f);
         yield return waitForSeconds;
         int playerId = 1;
         int pointsToAdd;
         for (int i = 0; i < 100; i++)
         {
-            pointsToAdd = UnityEngine.Random.Range(1, 2);
-            if (playerId != 1)
-                OnPlayerEarnedPoints(playerId, 100 * pointsToAdd);
+            pointsToAdd = UnityEngine.Random.Range(1, 10);
+            //if (playerId != 1)
+            OnPlayerEarnedPoints(playerId, 10 * pointsToAdd);
             yield return waitForSeconds;
             playerId = playerId % 4;
             playerId++;

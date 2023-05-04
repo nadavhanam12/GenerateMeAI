@@ -10,5 +10,6 @@ public class MatchConfiguration : ScriptableObject
     public List<PlayerData> PlayersData;
 
     public StagesDurations StagesDurations;
+    public bool TurnMode = true;
 
 }

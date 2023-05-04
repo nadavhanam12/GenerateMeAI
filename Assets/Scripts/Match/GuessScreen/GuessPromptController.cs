@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GuessPromptController : MonoBehaviour
 {
@@ -13,9 +14,13 @@ public class GuessPromptController : MonoBehaviour
     [SerializeField] float m_releaseRange = 10f;
     List<MissingLetter> m_missingLetters;
     string m_prompt;
+    bool enableInput;
+    [SerializeField] Image m_turnIndicator;
     public void Init(GuessImageController guessImageController)
     {
         m_guessImageController = guessImageController;
+        enableInput = true;
+        m_turnIndicator.gameObject.SetActive(false);
     }
 
     public void SetPrompt(string prompt)
@@ -29,32 +34,38 @@ public class GuessPromptController : MonoBehaviour
     {
         m_guessImageController.AddPoint();
     }
+    internal void ToggleInput(bool isOn)
+    {
+        enableInput = isOn;
+        m_turnIndicator.gameObject.SetActive(isOn);
+    }
 
     internal void OnLetterRelease(DragableLetter dragableLetter)
     {
         bool isReleaseOnLetter = false;
         //print(releasePos);
-        foreach (MissingLetter missingLetter in m_missingLetters)
-        {
-            if (IsInRange(missingLetter, dragableLetter))
+        if (enableInput)
+            foreach (MissingLetter missingLetter in m_missingLetters)
             {
-                if (missingLetter.GetLetter() == dragableLetter.GetLetter())
+                if (IsInRange(missingLetter, dragableLetter))
                 {
-                    //letters match
-                    missingLetter.Reveal();
-                    dragableLetter.Destroy();
-                    AddPoints();
-                    isReleaseOnLetter = true;
-                    break;
-                }
-                else
-                {
-                    //letters dont match
-                    missingLetter.FailTry();
-                }
+                    if (missingLetter.GetLetter() == dragableLetter.GetLetter())
+                    {
+                        //letters match
+                        missingLetter.Reveal();
+                        dragableLetter.Destroy();
+                        AddPoints();
+                        isReleaseOnLetter = true;
+                        break;
+                    }
+                    else
+                    {
+                        //letters dont match
+                        missingLetter.FailTry();
+                    }
 
+                }
             }
-        }
 
         if (!isReleaseOnLetter)
             dragableLetter.InitPosition();
@@ -97,6 +108,4 @@ public class GuessPromptController : MonoBehaviour
 
         return randomIndexes;
     }
-
-
 }

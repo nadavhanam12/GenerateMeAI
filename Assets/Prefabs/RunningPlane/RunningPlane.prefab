@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7318108816091127264}
   - component: {fileID: 3118513547388953318}
   - component: {fileID: 7450825226509061120}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RunningPlane1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 659285256927768592}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1699984576231878825}
   m_RootOrder: 0
@@ -105,7 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5445703896273411553}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Group2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 5150184500976957330}
   - component: {fileID: 3356723490206171688}
   - component: {fileID: 4902643130419693639}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RunningPlane5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ Transform:
   m_GameObject: {fileID: 2132198765690425569}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 40}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5445703896273411553}
   m_RootOrder: 1
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 8303456947201758020}
   - component: {fileID: 20807404247317864}
   - component: {fileID: 9204717912641595756}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RunningPlane6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ Transform:
   m_GameObject: {fileID: 3201272028645705685}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 50}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5445703896273411553}
   m_RootOrder: 2
@@ -330,7 +330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1699984576231878825}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Group1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 5091983950754514856}
   - component: {fileID: 4391497321260763168}
   - component: {fileID: 6469508409127958667}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RunningPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,7 +431,7 @@ GameObject:
   - component: {fileID: 8129488338036157423}
   - component: {fileID: 5284685452189183012}
   - component: {fileID: 3076290002673739743}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RunningPlane4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ Transform:
   m_GameObject: {fileID: 5426167217827388188}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 30}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5445703896273411553}
   m_RootOrder: 0
@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 6184732707043997676}
   - component: {fileID: 5850542888953929546}
   - component: {fileID: 9097740323133818156}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RunningPlane2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ Transform:
   m_GameObject: {fileID: 5732720336823632788}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1699984576231878825}
   m_RootOrder: 1
@@ -623,7 +623,7 @@ GameObject:
   - component: {fileID: 9088436282428777677}
   - component: {fileID: 4089581256134477202}
   - component: {fileID: 6467926611972223237}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RunningPlane3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,7 +639,7 @@ Transform:
   m_GameObject: {fileID: 6892978893504845844}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 20}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.95, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1699984576231878825}
   m_RootOrder: 2
