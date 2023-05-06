@@ -6,9 +6,7 @@ using Newtonsoft.Json;
 
 public class WebService : MonoBehaviour
 {
-    // [SerializeField] PostRequestHandler m_postRequestHandler;
-    // [SerializeField] GetRequestHandler m_getRequestHandler;
-    // [SerializeField] DownloadPngHandler m_downloadPngHandler;
+
 
     const string URL = "https://api.thenextleg.io/v2/";
     const string TOKEN = "7a4715c6-e482-49fd-bb42-54e61a798346";
@@ -17,9 +15,15 @@ public class WebService : MonoBehaviour
     private string messageId;
     private string downloadUrl;
     private Texture2D m_generatedTexture;
+    private string m_prompt;
     private bool m_available = true;
+    private int m_tryCounts = 0;
+    private bool m_stopCoroutineFlag = false;
+
     [SerializeField] EnterPromptController m_enterPromptController;
     [SerializeField] private bool m_connection;
+    [SerializeField] private bool m_midJourneyV4 = true;
+
     [SerializeField] private float m_getImageInterval;
 
     public void GenerateImage(string themePrompt, string playerPrompt)
@@ -34,41 +38,68 @@ public class WebService : MonoBehaviour
             Debug.Log("WebService: not available");
             return;
         }
+
         m_available = false;
-        string prompt = themePrompt + "::" + playerPrompt;
+        m_prompt = themePrompt + "::" + playerPrompt;
+        if (m_midJourneyV4)
+            m_prompt = m_prompt + " --v 4";
         m_progressWaitTime = new WaitForSeconds(m_getImageInterval);
-        Debug.Log(prompt);
-        StartCoroutine(GenerateImages(prompt));
+        //Debug.Log(m_prompt);
+        StartCoroutine(GenerateImage());
     }
-    IEnumerator GenerateImages(string prompt)
+    IEnumerator GenerateImage()
     {
+        // Step 1
         // post imagine command and set messageId
         // messageId="" if fail
-        yield return StartCoroutine(PostImagineCommand(prompt));
-        if (messageId == "")
-        {
-            ProcessFail("Post Imagine Command");
+        Debug.Log(m_prompt);
+        UpdateImageProcessText("Generating Image Prompt");
+        yield return StartCoroutine(PostImagineCommand(m_prompt));
+        if (m_stopCoroutineFlag)
             yield break;
-        }
 
-        //messageId = "war9nUZovSlyBaVFGsys";
+        // Step 2
+        //messageId = "mFJJgmUpNRk93vOJhtZn";
         // 2. Send a GET request every 1 second to check progress
         yield return StartCoroutine(GetImageURL());
-        if (downloadUrl == "")
-        {
-            ProcessFail("Get Image URL");
+        if (m_stopCoroutineFlag)
             yield break;
-        }
 
+        // Step 3
+        // check image is png format
+        string imageFormatType = downloadUrl.Substring(downloadUrl.Length - 3);
+        if (imageFormatType != "png")
+            //means its not png format
+            if (m_tryCounts == 0)
+            {
+                Debug.Log("Got no png format - " + m_prompt);
+                m_prompt = m_prompt + " --q .25";
+                m_tryCounts++;
+                StartCoroutine(GenerateImage());
+                yield break;
+            }
+            else
+            if (m_tryCounts == 1)
+            {
+                Debug.Log("Got no png format - " + m_prompt);
+                m_tryCounts++;
+                StartCoroutine(GenerateImage());
+                yield break;
+            }
+            else
+            {
+                StopAllCoroutines();
+                UpdateImageProcessText("Failed: Download Image On Second try");
+                yield break;
+            }
+
+        // Step 4
         // 3. If progress is 100, download the PNG from the URL received in step 2
         yield return StartCoroutine(DownloadImage());
-        if (m_generatedTexture == null)
-        {
-            ProcessFail("Download Image");
+        if (m_stopCoroutineFlag)
             yield break;
-        }
-        else
-            m_enterPromptController.UpdateNewImage(m_generatedTexture);
+        m_enterPromptController.UpdateNewImage(m_generatedTexture);
+
     }
 
     IEnumerator PostImagineCommand(string prompt)
@@ -104,7 +135,16 @@ public class WebService : MonoBehaviour
                 messageId = "";
             }
         }
+
+        if (messageId == "")
+        {
+            UpdateImageProcessText("Failed: Post Imagine Command");
+            m_stopCoroutineFlag = true;
+        }
+        else
+            UpdateImageProcessText("Success: Post Imagine Command");
     }
+
     IEnumerator GetImageURL()
     {
         print(messageId);
@@ -131,16 +171,23 @@ public class WebService : MonoBehaviour
                     downloadUrl = "";
                 }
             }
-            print("progress: " + progress);
+            UpdateImageProcessText("progress: " + progress);
         }
+
+        Debug.Log(downloadUrl);
+        if (downloadUrl == "")
+        {
+            UpdateImageProcessText("Failed: Get Image URL");
+            m_stopCoroutineFlag = true;
+        }
+        else
+            UpdateImageProcessText("Success: Get Image URL");
     }
     IEnumerator DownloadImage()
     {
-        Debug.Log(downloadUrl);
         using (UnityWebRequest pngRequest = UnityWebRequestTexture.GetTexture(downloadUrl))
         {
             yield return pngRequest.SendWebRequest();
-
             if (pngRequest.result == UnityWebRequest.Result.Success)
             {
                 Debug.Log("pngRequest finished Successfully");
@@ -152,30 +199,24 @@ public class WebService : MonoBehaviour
                 m_generatedTexture = null;
             }
         }
+
+        if (m_generatedTexture == null)
+        {
+            UpdateImageProcessText("Failed: Download Image");
+            m_stopCoroutineFlag = true;
+        }
+        else
+        {
+            UpdateImageProcessText("Success: Download Image");
+        }
+
+
     }
-    // IEnumerator Start()
-    // {
-    //     using (WWW www = new WWW(url))
-    //     {
-    //         yield return www;
 
-    //         if (string.IsNullOrEmpty(www.error))
-    //         {
-    //             Texture2D texture = WebP.LoadTexture(www.bytes);
-    //             targetRenderer.material.mainTexture = texture;
-    //         }
-    //         else
-    //         {
-    //             Debug.LogError(www.error);
-    //         }
-    //     }
-    // }
-
-
-    private void ProcessFail(string failFunction)
+    private void UpdateImageProcessText(string message)
     {
-        m_enterPromptController.UpdateFailImageProcces();
-        Debug.Log("Fail Image Process: " + failFunction);
+        m_enterPromptController.UpdateImageProcessText(message);
+        Debug.Log(message);
     }
 }
 

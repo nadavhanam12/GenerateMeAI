@@ -17,11 +17,13 @@ public class EnterPromptController : AbstractStageChangeListener
     [SerializeField] private TMP_Dropdown m_themeDropdown;
     [SerializeField] private ThemeImages m_christmasTheme;
     [SerializeField] private ThemeImages m_vanGoghTheme;
-    [SerializeField] private Texture2D m_processFailImage;
+    [SerializeField] private TMP_Text m_processText;
+
 
     private ThemeImages m_chosenTheme;
     bool m_submitted;
     int m_playerId;
+
     public static event Action<int, GuessImageModel> OnPlayerSubmitImage;
     public override void Init(MatchConfiguration matchConfiguration)
     {
@@ -31,6 +33,8 @@ public class EnterPromptController : AbstractStageChangeListener
         gameObject.SetActive(true);
         m_submitted = false;
         m_chosenTheme = m_christmasTheme;
+        m_processText.gameObject.SetActive(false);
+
         //m_promptInput.interactable = false;
         //Invoke("Submit", 1f);
     }
@@ -61,7 +65,7 @@ public class EnterPromptController : AbstractStageChangeListener
         m_submitted = true;
         ToggleWaitText(true);
         string inputText = m_promptInput.text;
-        m_webService.GenerateImage(m_chosenTheme.ThemePromp, inputText);
+        m_webService.GenerateImage(m_chosenTheme.ThemePrompt, inputText);
     }
 
     private void SubmitImage()
@@ -105,6 +109,7 @@ public class EnterPromptController : AbstractStageChangeListener
     private void ToggleWaitText(bool isOn)
     {
         m_promptInput.interactable = !isOn;
+        m_themeDropdown.interactable = !isOn;
         m_button.gameObject.SetActive(!isOn);
         m_waitingText.gameObject.SetActive(isOn);
     }
@@ -124,11 +129,14 @@ public class EnterPromptController : AbstractStageChangeListener
 
     internal void UpdateNewImage(Texture2D texture)
     {
+        m_processText.gameObject.SetActive(false);
         m_image.texture = texture;
     }
 
-    internal void UpdateFailImageProcces()
+    internal void UpdateImageProcessText(string message)
     {
-        m_image.texture = m_processFailImage;
+        m_image.texture = null;
+        m_processText.gameObject.SetActive(true);
+        m_processText.text = message;
     }
 }
