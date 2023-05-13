@@ -20,17 +20,21 @@ public class WebService : MonoBehaviour
     private int m_tryCounts = 0;
     private bool m_stopCoroutineFlag = false;
 
-    [SerializeField] EnterPromptController m_enterPromptController;
+    [SerializeField] GenerateImageController m_generateImageController;
     [SerializeField] private bool m_connection;
     [SerializeField] private bool m_midJourneyV4 = true;
 
     [SerializeField] private float m_getImageInterval;
+    [SerializeField] private float m_dummyGenerationStageDuration;
+    [SerializeField] private Texture2D m_dummyImage;
+
 
     public void GenerateImage(string themePrompt, string playerPrompt)
     {
         if (!m_connection)
         {
             Debug.Log("WebService: no connection");
+            StartCoroutine(GenerateDummyImage());
             return;
         }
         if (!m_available)
@@ -98,8 +102,7 @@ public class WebService : MonoBehaviour
         yield return StartCoroutine(DownloadImage());
         if (m_stopCoroutineFlag)
             yield break;
-        m_enterPromptController.UpdateNewImage(m_generatedTexture);
-
+        m_generateImageController.UpdateNewImage(m_generatedTexture);
     }
 
     IEnumerator PostImagineCommand(string prompt)
@@ -215,8 +218,26 @@ public class WebService : MonoBehaviour
 
     private void UpdateImageProcessText(string message)
     {
-        m_enterPromptController.UpdateImageProcessText(message);
+        m_generateImageController.UpdateImageProcessText(message);
         Debug.Log(message);
+    }
+
+    IEnumerator GenerateDummyImage()
+    {
+        UpdateImageProcessText("Dummy: Start Process");
+        yield return new WaitForSeconds(m_dummyGenerationStageDuration);
+        UpdateImageProcessText("Dummy: Submitted Image!");
+        yield return new WaitForSeconds(m_dummyGenerationStageDuration);
+        UpdateImageProcessText("Dummy: Generated Image!");
+        yield return new WaitForSeconds(m_dummyGenerationStageDuration);
+        UpdateImageProcessText("Dummy: Downloaded Image!");
+        m_generateImageController.UpdateNewImage(m_dummyImage);
+    }
+
+    public void CancelProcess()
+    {
+        m_stopCoroutineFlag = true;
+        StopAllCoroutines();
     }
 }
 

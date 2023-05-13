@@ -10,6 +10,7 @@ public class StateController : MonoBehaviour
     {
         WaitingForOtherPlayers,
         ChoosingPrompt,
+        WaitingForImages,
         MatchStarting,
         Match,
         MatchFinish,
@@ -17,24 +18,43 @@ public class StateController : MonoBehaviour
     public static event Action<MatchState> OnStateChange;
 
     private MatchState m_curState;
+    private int m_playersCount;
+    private int m_playersReady;
     protected virtual void OnEnable()
     {
         TimeController.OnStageTimeIsOver += StageTimeOver;
+        GenerateImageController.OnPlayerSubmitImage += PlayerSubmitImage;
+
     }
     protected virtual void OnDisable()
     {
         TimeController.OnStageTimeIsOver -= StageTimeOver;
+        GenerateImageController.OnPlayerSubmitImage -= PlayerSubmitImage;
+
     }
 
-    public async void StartMatch()
+    private void PlayerSubmitImage
+        (int playerId, GuessImageModel guessImageModel)
     {
-        await Task.Delay(1000);
+        if (m_curState != MatchState.WaitingForImages)
+            return;
+        m_playersReady++;
+        if (m_playersReady == m_playersCount)
+            SetState((MatchState)((int)m_curState + 1));
+    }
+
+    public async void StartMatch(int playersCount)
+    {
+        m_playersCount = playersCount;
+        m_playersReady = 0;
+        //await Task.Delay(1000);
         SetState(MatchState.WaitingForOtherPlayers);
+        //SetState(MatchState.MatchStarting);
+
     }
     private void StageTimeOver(MatchState finishedState)
     {
         SetState((MatchState)((int)m_curState + 1));
-
     }
     private void SetState(MatchState newState)
     {

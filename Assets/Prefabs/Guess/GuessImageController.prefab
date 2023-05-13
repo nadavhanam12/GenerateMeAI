@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 6901476344857663080}
   - component: {fileID: 6901476344857663081}
   - component: {fileID: 6901476344857663078}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: PlayerIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6901476344857663080
 RectTransform:
   m_ObjectHideFlags: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6901476345167803441}
   - component: {fileID: 6901476345167803406}
   - component: {fileID: 438799247268147770}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: PrompController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,11 +110,11 @@ RectTransform:
   m_Father: {fileID: 6901476346162341163}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 850}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -1000}
+  m_SizeDelta: {x: 0, y: 700}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!223 &6901476345167803405
 Canvas:
   m_ObjectHideFlags: 0
@@ -189,9 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_guessLettersFactory: {fileID: 6901476345167803406}
-  m_hiddenIndexesPrecentage: 0.5
-  m_hiddenIndexesMinimum: 5
-  m_releaseRange: 7
+  m_releaseRange: 45
   m_turnIndicator: {fileID: 4722523298945499700}
 --- !u!114 &6901476345167803406
 MonoBehaviour:
@@ -240,13 +238,13 @@ GameObject:
   - component: {fileID: 6901476345187711148}
   - component: {fileID: 6901476345187711146}
   - component: {fileID: 6901476345187711149}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: GuessBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6901476345187711148
 RectTransform:
   m_ObjectHideFlags: 0
@@ -315,7 +313,7 @@ GameObject:
   - component: {fileID: 6901476345223408390}
   - component: {fileID: 6901476345223408388}
   - component: {fileID: 6901476345223408391}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: GuessImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,14 +331,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6901476346162341163}
-  m_RootOrder: 3
+  m_Father: {fileID: 6598135377090518568}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -20}
-  m_SizeDelta: {x: 750, y: 750}
-  m_Pivot: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -30, y: -40}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6901476345223408388
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -387,7 +385,7 @@ GameObject:
   - component: {fileID: 6901476345349812785}
   - component: {fileID: 6901476345349812751}
   - component: {fileID: 6901476345349812750}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: GuessTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +520,7 @@ GameObject:
   - component: {fileID: 6901476346028741195}
   - component: {fileID: 8089706619996342256}
   - component: {fileID: 3038624576623085246}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Letters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,10 +541,10 @@ RectTransform:
   m_Father: {fileID: 6901476345167803402}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 385, y: 0}
-  m_SizeDelta: {x: -770, y: 480}
+  m_AnchorMin: {x: 0, y: 0.05}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &6901476346028741195
 MonoBehaviour:
@@ -620,7 +618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6901476346162341163}
   - component: {fileID: 6901476346162341160}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: GuessImageController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +639,7 @@ RectTransform:
   - {fileID: 6901476345187711148}
   - {fileID: 2072697496867108099}
   - {fileID: 6901476345349812785}
-  - {fileID: 6901476345223408390}
+  - {fileID: 6598135377090518568}
   - {fileID: 6901476346520462172}
   - {fileID: 6901476344857663080}
   - {fileID: 6901476345167803402}
@@ -681,7 +679,7 @@ GameObject:
   - component: {fileID: 6901476346337742646}
   - component: {fileID: 1303655417}
   - component: {fileID: 1303655416}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Prompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,8 +700,8 @@ RectTransform:
   m_Father: {fileID: 6901476345167803402}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.45}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0}
@@ -780,13 +778,13 @@ GameObject:
   - component: {fileID: 6901476346520462172}
   - component: {fileID: 6901476346520462173}
   - component: {fileID: 6901476346520462170}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: PlayerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6901476346520462172
 RectTransform:
   m_ObjectHideFlags: 0
@@ -914,7 +912,7 @@ GameObject:
   - component: {fileID: 2072697496867108099}
   - component: {fileID: 2098336885927581190}
   - component: {fileID: 4722523298945499700}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: TurnIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -938,7 +936,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 540, y: 0}
-  m_SizeDelta: {x: 1080, y: 1152}
+  m_SizeDelta: {x: 1080, y: 1920}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &2098336885927581190
 CanvasRenderer:
@@ -978,3 +976,76 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8980807620851673984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6598135377090518568}
+  - component: {fileID: 3333771051311460728}
+  - component: {fileID: 8822451852318506508}
+  m_Layer: 5
+  m_Name: ImageBG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6598135377090518568
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980807620851673984}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6901476345223408390}
+  m_Father: {fileID: 6901476346162341163}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -40, y: 1000}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!222 &3333771051311460728
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980807620851673984}
+  m_CullTransparentMesh: 1
+--- !u!114 &8822451852318506508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8980807620851673984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 0}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1

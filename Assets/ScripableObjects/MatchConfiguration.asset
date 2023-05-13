@@ -21,7 +21,7 @@ MonoBehaviour:
     m_guessImageModel:
       PromptText: big black and white cat with a red stripes hat
       Image: {fileID: 2800000, guid: 5efd7ee0fc2b79f44bd8b99644be5560, type: 3}
-    m_points: 210
+    m_points: 0
   - m_playerDetails:
       PlayerId: 2
       PlayerName: Maria
@@ -29,27 +29,13 @@ MonoBehaviour:
     m_guessImageModel:
       PromptText: steampunk dog
       Image: {fileID: 2800000, guid: 9cf2a6c549784b241b080b34bafd724c, type: 3}
-    m_points: 310
-  - m_playerDetails:
-      PlayerId: 3
-      PlayerName: Omer
-      PlayerIcon: {fileID: 2800000, guid: 75b82b63ba37d9f47960f4384fad27d7, type: 3}
-    m_guessImageModel:
-      PromptText: pirate ship in the middle of a storm
-      Image: {fileID: 2800000, guid: 25415b7e02378ef4fa86f89d6c5908ef, type: 3}
-    m_points: 110
-  - m_playerDetails:
-      PlayerId: 4
-      PlayerName: Rotem
-      PlayerIcon: {fileID: 2800000, guid: 25d56614dd3f16c4b8bccfbaf5abf30a, type: 3}
-    m_guessImageModel:
-      PromptText: team of cats journeys to a remote destiny
-      Image: {fileID: 2800000, guid: eba419fa7fe2b704089815e7e5991359, type: 3}
-    m_points: 110
+    m_points: 0
   StagesDurations:
-    WaitingForPlayersDuration: 1
-    ChoosingPromptDuration: 3
-    MatchStartingDuration: 3
+    WaitingForPlayersDuration: 0
+    ChoosingPromptDuration: 2
+    WaitingForImagesDuration: 6
+    MatchStartingDuration: 0
     MatchDuration: 100
     TurnDuration: 3
-  TurnMode: 1
+  TurnMode: 0
+  HiddenCharactersCount: 8

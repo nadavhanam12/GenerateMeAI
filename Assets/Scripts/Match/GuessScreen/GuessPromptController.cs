@@ -8,18 +8,17 @@ public class GuessPromptController : MonoBehaviour
 {
     GuessImageController m_guessImageController;
     [SerializeField] GuessLettersFactory m_guessLettersFactory;
-    [SerializeField][Range(0, 1)] float m_hiddenIndexesPrecentage = 0.5f;
-    [SerializeField][Range(0, 1)] int m_hiddenIndexesMinimum = 5;
-
+    private int m_hiddenCharactersCount;
     [SerializeField] float m_releaseRange = 10f;
     List<MissingLetter> m_missingLetters;
     string m_prompt;
-    bool enableInput;
+    bool m_enableInput;
     [SerializeField] Image m_turnIndicator;
-    public void Init(GuessImageController guessImageController)
+    public void Init(GuessImageController guessImageController, int hiddenCharactersCount)
     {
+        m_hiddenCharactersCount = hiddenCharactersCount;
         m_guessImageController = guessImageController;
-        enableInput = true;
+        m_enableInput = true;
         m_turnIndicator.gameObject.SetActive(false);
     }
 
@@ -36,15 +35,14 @@ public class GuessPromptController : MonoBehaviour
     }
     internal void ToggleInput(bool isOn)
     {
-        enableInput = isOn;
+        m_enableInput = isOn;
         m_turnIndicator.gameObject.SetActive(isOn);
     }
 
     internal void OnLetterRelease(DragableLetter dragableLetter)
     {
         bool isReleaseOnLetter = false;
-        //print(releasePos);
-        if (enableInput)
+        if (m_enableInput)
             foreach (MissingLetter missingLetter in m_missingLetters)
             {
                 if (IsInRange(missingLetter, dragableLetter))
@@ -95,11 +93,12 @@ public class GuessPromptController : MonoBehaviour
         List<int> randomIndexes = new List<int>();
         System.Random rand = new System.Random();
 
-        int count = (int)(nonSpaceIndexes.Count * m_hiddenIndexesPrecentage);
-        if (count < m_hiddenIndexesMinimum)
-            count = m_hiddenIndexesMinimum;
 
-        for (int i = 0; i < count; i++)
+        int hiddenCharsCount = m_hiddenCharactersCount;
+        if (hiddenCharsCount > nonSpaceIndexes.Count)
+            hiddenCharsCount = nonSpaceIndexes.Count;
+
+        for (int i = 0; i < hiddenCharsCount; i++)
         {
             int randomIndex = nonSpaceIndexes[rand.Next(nonSpaceIndexes.Count)];
             nonSpaceIndexes.Remove(randomIndex);

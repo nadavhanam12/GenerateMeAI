@@ -11,6 +11,7 @@ public class TurnController : AbstractStageChangeListener
     List<PlayerDetails> players;
     WaitForSeconds waitForSeconds;
     int m_playerId;
+    int m_numberOfPlayers;
     public override void Init(MatchConfiguration matchConfiguration)
     {
         if (!matchConfiguration.TurnMode)
@@ -18,6 +19,7 @@ public class TurnController : AbstractStageChangeListener
             this.enabled = false;
             return;
         }
+        m_numberOfPlayers = matchConfiguration.PlayersData.Count;
         m_playerId = matchConfiguration.playerId;
         waitForSeconds = new WaitForSeconds(matchConfiguration.StagesDurations.TurnDuration);
         players = new List<PlayerDetails>();
@@ -40,9 +42,9 @@ public class TurnController : AbstractStageChangeListener
         int turn = 0;
         for (int i = 0; i < 100; i++)
         {
-            InvokeTurn(players[turn % 4]);
+            InvokeTurn(players[turn % m_numberOfPlayers]);
             yield return waitForSeconds;
-            if (players[turn % 4].PlayerId == m_playerId)
+            if (players[turn % m_numberOfPlayers].PlayerId == m_playerId)
             {
                 yield return waitForSeconds;
                 yield return waitForSeconds;

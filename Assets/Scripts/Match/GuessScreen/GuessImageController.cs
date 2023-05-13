@@ -16,13 +16,16 @@ public class GuessImageController : MonoBehaviour
     private GuessManager m_manager;
 
 
-    internal void Init(GuessManager manager, PlayerDetails playerDetails)
+    internal void Init(
+        GuessManager manager,
+         PlayerDetails playerDetails,
+         int hiddenCharactersCount)
     {
         m_manager = manager;
         m_playerDetails = playerDetails;
         m_playerName.text = m_playerDetails.PlayerName;
         m_playerIcon.texture = m_playerDetails.PlayerIcon;
-        m_guessPromptController.Init(this);
+        m_guessPromptController.Init(this, hiddenCharactersCount);
     }
     internal int GetPlayerId()
     {

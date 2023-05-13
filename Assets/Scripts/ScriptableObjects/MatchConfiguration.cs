@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,5 +10,6 @@ public class MatchConfiguration : ScriptableObject
 
     public StagesDurations StagesDurations;
     public bool TurnMode = true;
+    public int HiddenCharactersCount = 8;
 
 }

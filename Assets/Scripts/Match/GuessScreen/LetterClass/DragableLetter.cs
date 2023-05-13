@@ -55,6 +55,7 @@ public class DragableLetter : Letter, IDragHandler, IPointerDownHandler, IPointe
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        //print("OnPointerUp");
         m_controller.OnLetterRelease(this);
     }
 }
