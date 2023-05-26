@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     void StartMatch()
     {
-        m_matchInitializer.StartMatch();
+        m_matchInitializer.StartMatch(m_matchConfiguration.PlayersData.Count);
     }
 
 

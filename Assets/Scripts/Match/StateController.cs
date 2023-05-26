@@ -36,18 +36,17 @@ public class StateController : MonoBehaviour
     private void PlayerSubmitImage
         (int playerId, GuessImageModel guessImageModel)
     {
+        m_playersReady++;
         if (m_curState != MatchState.WaitingForImages)
             return;
-        m_playersReady++;
         if (m_playersReady == m_playersCount)
             SetState((MatchState)((int)m_curState + 1));
     }
 
-    public async void StartMatch(int playersCount)
+    public void StartMatch(int playersCount)
     {
         m_playersCount = playersCount;
         m_playersReady = 0;
-        //await Task.Delay(1000);
         SetState(MatchState.WaitingForOtherPlayers);
         //SetState(MatchState.MatchStarting);
 

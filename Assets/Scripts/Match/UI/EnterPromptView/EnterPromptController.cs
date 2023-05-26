@@ -22,7 +22,7 @@ public class EnterPromptController : AbstractStageChangeListener
         ToggleInteractables(true);
         m_canvas.enabled = false;
         gameObject.SetActive(true);
-        m_image.texture = null;
+        //m_image.texture = null;
         m_promptInput.text = "";
         m_guessImageModelFactory.Init(m_themeDropdown, m_image, m_promptInput);
     }
@@ -43,8 +43,7 @@ public class EnterPromptController : AbstractStageChangeListener
             Show();
         else if (state == MatchState.WaitingForImages)
         {
-            ToggleInteractables(false);
-            m_generateImageController.GenerateImage();
+            SubmitPrompt();
         }
         else if (state == MatchState.MatchStarting)
         {
@@ -54,13 +53,14 @@ public class EnterPromptController : AbstractStageChangeListener
 
     public void SubmitPrompt()
     {
+        ToggleInteractables(false);
         m_generateImageController.GenerateImage();
     }
 
     private void ToggleInteractables(bool isOn)
     {
-        m_promptInput.interactable = !isOn;
-        m_themeDropdown.interactable = !isOn;
-        m_submitPromptButton.gameObject.SetActive(!isOn);
+        m_promptInput.interactable = isOn;
+        m_themeDropdown.interactable = isOn;
+        m_submitPromptButton.gameObject.SetActive(isOn);
     }
 }

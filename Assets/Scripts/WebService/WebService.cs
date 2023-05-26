@@ -23,6 +23,8 @@ public class WebService : MonoBehaviour
     [SerializeField] GenerateImageController m_generateImageController;
     [SerializeField] private bool m_connection;
     [SerializeField] private bool m_midJourneyV4 = true;
+    [SerializeField] private bool m_lowQuality = true;
+    [SerializeField] private bool m_withLogs;
 
     [SerializeField] private float m_getImageInterval;
     [SerializeField] private float m_dummyGenerationStageDuration;
@@ -47,8 +49,11 @@ public class WebService : MonoBehaviour
         m_prompt = themePrompt + "::" + playerPrompt;
         if (m_midJourneyV4)
             m_prompt = m_prompt + " --v 4";
+        if (m_lowQuality)
+            m_prompt = m_prompt + " --q .25";
         m_progressWaitTime = new WaitForSeconds(m_getImageInterval);
-        //Debug.Log(m_prompt);
+        if (m_withLogs)
+            Debug.Log(m_prompt);
         StartCoroutine(GenerateImage());
     }
     IEnumerator GenerateImage()
@@ -56,8 +61,9 @@ public class WebService : MonoBehaviour
         // Step 1
         // post imagine command and set messageId
         // messageId="" if fail
-        Debug.Log(m_prompt);
-        UpdateImageProcessText("Generating Image Prompt");
+        if (m_withLogs)
+            Debug.Log(m_prompt);
+        UpdateImageProcessText("Generating... 0/3");
         yield return StartCoroutine(PostImagineCommand(m_prompt));
         if (m_stopCoroutineFlag)
             yield break;
@@ -77,7 +83,6 @@ public class WebService : MonoBehaviour
             if (m_tryCounts == 0)
             {
                 Debug.Log("Got no png format - " + m_prompt);
-                m_prompt = m_prompt + " --q .25";
                 m_tryCounts++;
                 StartCoroutine(GenerateImage());
                 yield break;
@@ -145,12 +150,13 @@ public class WebService : MonoBehaviour
             m_stopCoroutineFlag = true;
         }
         else
-            UpdateImageProcessText("Success: Post Imagine Command");
+            UpdateImageProcessText("Generating... 1/3");
     }
 
     IEnumerator GetImageURL()
     {
-        print(messageId);
+        if (m_withLogs)
+            Debug.Log(messageId);
         progress = 0;
         while (progress < 100)
         {
@@ -174,17 +180,17 @@ public class WebService : MonoBehaviour
                     downloadUrl = "";
                 }
             }
-            UpdateImageProcessText("progress: " + progress);
+            UpdateImageProcessText("Generating... 1/3 " + progress + "%");
         }
-
-        Debug.Log(downloadUrl);
+        if (m_withLogs)
+            Debug.Log(downloadUrl);
         if (downloadUrl == "")
         {
             UpdateImageProcessText("Failed: Get Image URL");
             m_stopCoroutineFlag = true;
         }
         else
-            UpdateImageProcessText("Success: Get Image URL");
+            UpdateImageProcessText("Generating... 2/3");
     }
     IEnumerator DownloadImage()
     {
@@ -193,7 +199,8 @@ public class WebService : MonoBehaviour
             yield return pngRequest.SendWebRequest();
             if (pngRequest.result == UnityWebRequest.Result.Success)
             {
-                Debug.Log("pngRequest finished Successfully");
+                if (m_withLogs)
+                    Debug.Log("pngRequest finished Successfully");
                 m_generatedTexture = DownloadHandlerTexture.GetContent(pngRequest);
             }
             else
@@ -210,7 +217,7 @@ public class WebService : MonoBehaviour
         }
         else
         {
-            UpdateImageProcessText("Success: Download Image");
+            UpdateImageProcessText("Generating... 3/3");
         }
 
 
@@ -219,18 +226,21 @@ public class WebService : MonoBehaviour
     private void UpdateImageProcessText(string message)
     {
         m_generateImageController.UpdateImageProcessText(message);
-        Debug.Log(message);
+        if (m_withLogs)
+            Debug.Log(message);
     }
 
     IEnumerator GenerateDummyImage()
     {
-        UpdateImageProcessText("Dummy: Start Process");
+        UpdateImageProcessText("Dum Generating... 0/3");
         yield return new WaitForSeconds(m_dummyGenerationStageDuration);
-        UpdateImageProcessText("Dummy: Submitted Image!");
+        UpdateImageProcessText("Dum Generating... 1/3");
         yield return new WaitForSeconds(m_dummyGenerationStageDuration);
-        UpdateImageProcessText("Dummy: Generated Image!");
+        UpdateImageProcessText("Dum Generating... 2/3 0%");
         yield return new WaitForSeconds(m_dummyGenerationStageDuration);
-        UpdateImageProcessText("Dummy: Downloaded Image!");
+        UpdateImageProcessText("Dum Generating... 2/3 50%");
+        yield return new WaitForSeconds(m_dummyGenerationStageDuration);
+        UpdateImageProcessText("Dum Generating... 3/3");
         m_generateImageController.UpdateNewImage(m_dummyImage);
     }
 

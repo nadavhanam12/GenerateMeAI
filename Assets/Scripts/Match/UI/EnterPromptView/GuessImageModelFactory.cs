@@ -46,6 +46,8 @@ public class GuessImageModelFactory : MonoBehaviour
     }
     public string GetUserPrompt()
     {
+        if (m_promptInput.text == "")
+            m_promptInput.text = "Dummy Prompt";
         return m_promptInput.text;
     }
 }

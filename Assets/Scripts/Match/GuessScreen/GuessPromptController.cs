@@ -96,14 +96,17 @@ public class GuessPromptController : MonoBehaviour
 
         int hiddenCharsCount = m_hiddenCharactersCount;
         if (hiddenCharsCount > nonSpaceIndexes.Count)
-            hiddenCharsCount = nonSpaceIndexes.Count;
-
-        for (int i = 0; i < hiddenCharsCount; i++)
+            return nonSpaceIndexes;
+        else
         {
-            int randomIndex = nonSpaceIndexes[rand.Next(nonSpaceIndexes.Count)];
-            nonSpaceIndexes.Remove(randomIndex);
-            randomIndexes.Add(randomIndex);
+            for (int i = 0; i < hiddenCharsCount; i++)
+            {
+                int randomIndex = nonSpaceIndexes[rand.Next(nonSpaceIndexes.Count)];
+                nonSpaceIndexes.Remove(randomIndex);
+                randomIndexes.Add(randomIndex);
+            }
         }
+
 
         return randomIndexes;
     }

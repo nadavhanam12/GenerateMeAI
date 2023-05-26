@@ -14,8 +14,8 @@ public class MatchInitializer : MonoBehaviour
             controller.Init(matchConfiguration);
     }
 
-    internal void StartMatch()
+    internal void StartMatch(int playersConut)
     {
-        m_stateController.StartMatch();
+        m_stateController.StartMatch(playersConut);
     }
 }
